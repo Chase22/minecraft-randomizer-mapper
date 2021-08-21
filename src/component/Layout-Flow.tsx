@@ -33,9 +33,16 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
   let sourceList = [...sources, ...targets];
   let set = new Set(sourceList);
   const nodes: Node[] = Array.from(set).map(name => {
+      let type = 'default';
+      if (sources.includes(name) && !targets.includes(name)) {
+        type = 'input'
+      } else if (!sources.includes(name) && targets.includes(name)) {
+        type = 'output'
+      }
+
       return {
         id: name,
-        type: 'default',
+        type,
         data: {label: name},
         position: {x: 0, y: 0},
       }
