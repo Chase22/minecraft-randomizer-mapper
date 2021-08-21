@@ -1,0 +1,16 @@
+.dialogContent {
+    display: flex;
+    flex-direction: row;
+}
+
+.autoCorrect {
+    flex-grow: 1;
+}
+
+.arrow {
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import AddIcon from '@material-ui/icons/Add';
+import React, {useState} from 'react';
 import './App.css';
+import Layout from "./component/Layout-Flow";
+import NewConnectionDialog from "./component/NewConnectionDialog/NewConnectionDialog";
+import items from './resources/items.json'
+import {Fab} from "@material-ui/core";
+
+export interface ItemConnection {
+  source: string,
+  target: string
+}
 
 function App() {
+  const [connections, setConnections] = useState<ItemConnection[]>([])
+
+  const [newConnectionDialogOpen, setNewConnectionDialogOpen] = useState<boolean>(false)
+
+  const handleNewConnection = (source: string, target: string) => {
+    setConnections([...connections, {source, target}])
+    setNewConnectionDialogOpen(false)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Layout connections={connections}/>
+      <NewConnectionDialog
+        onSubmit={handleNewConnection}
+        onClose={() => setNewConnectionDialogOpen(false)}
+        itemIds={items.map(value => value.name).sort()}
+        connections={connections}
+        open={newConnectionDialogOpen}
+      />
+      <Fab onClick={() => setNewConnectionDialogOpen(true)}>
+        <AddIcon/>
+      </Fab>
     </div>
   );
 }
