@@ -41,7 +41,7 @@ const RemoveConnectionDialog: React.FC<RemoveConnectionDialogProps> = ({onDelete
   };
 
   return (
-    <Dialog open={open} fullWidth fullScreen={fullScreen}>
+    <Dialog open={open} fullWidth fullScreen={fullScreen} scroll="paper">
       <ConfirmationDialog
         text={"Do you want to delete the selected Connections?"}
         open={showConfirmation}

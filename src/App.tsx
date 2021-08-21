@@ -11,7 +11,7 @@ import useStickyState from "./util/stickyState";
 
 export interface ItemConnection {
   source: string,
-  target: string
+  target?: string
 }
 
 function App() {
@@ -21,7 +21,10 @@ function App() {
   const [deleteConnectionDialogOpen, setDeleteConnectionDialogOpen] = useState<boolean>(false)
 
   const handleNewConnection = (source: string, target: string) => {
-    setConnections([...connections, {source, target}])
+    const newConnections = connections.filter(value => !((value.source === source || value.target === source) && value.target === undefined))
+    newConnections.push({source, target})
+
+    setConnections(newConnections)
     setNewConnectionDialogOpen(false)
   }
 

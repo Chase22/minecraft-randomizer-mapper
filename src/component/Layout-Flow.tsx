@@ -27,7 +27,10 @@ interface LayoutFlowProps {
 }
 
 const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
-  let sourceList = [...connections.map(value => value.source), ...connections.map(value => value.target)];
+  const sources = connections.map(value => value.source);
+  const targets = connections.map(value => value.target).filter(value => value !== undefined) as string[];
+
+  let sourceList = [...sources, ...targets];
   let set = new Set(sourceList);
   const nodes: Node[] = Array.from(set).map(name => {
       return {
@@ -40,6 +43,9 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
   )
 
   const edges: Edge[] = connections.map(connection => {
+    if (!connection.target) {
+      return null
+    }
     return {
       id: `${connection.source}-${connection.target}`,
       source: connection.source,
@@ -48,7 +54,7 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
       arrowHeadType: ArrowHeadType.ArrowClosed
 
     }
-  })
+  }).filter(value => value !== null) as Edge[]
 
   const elements = [...nodes, ...edges]
 

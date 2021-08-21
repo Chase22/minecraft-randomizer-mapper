@@ -19,7 +19,6 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
   const [target, setTarget] = useState<string>();
 
   const [sourceError, setSourceError] = useState<string>()
-  const [targetError, setTargetError] = useState<string>()
   const [showErrorSnackbar, setShowErrorSnackbar] = useState<boolean>(false)
 
   const theme = useTheme();
@@ -31,10 +30,6 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
       hasError = true
       setSourceError("Please select a source")
     }
-    if (!target) {
-      hasError = true
-      setTargetError("Please select a target")
-    }
 
     if (connections.find(connection => connection.source === source && connection.target === target)) {
       hasError = true
@@ -42,6 +37,8 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
     }
     if (!hasError) {
       onSubmit(source!!, target!!)
+      setSource(undefined)
+      setTarget(undefined)
     }
   }
 
@@ -81,16 +78,11 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
           <Autocomplete
             className={classes.autoCorrect}
             onChange={
-              (e, value) => {
-                setTarget(value!!)
-                setTargetError(undefined)
-              }
+              (e, value) => setTarget(value!!)
             }
             renderInput={(params) =>
               <TextField
                 {...params}
-                error={targetError !== undefined}
-                helperText={targetError}
                 label="Combo box"
                 variant="outlined"
                 value={target}
@@ -102,7 +94,7 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={sourceError !== undefined || targetError !== undefined}>Submit</Button>
+        <Button onClick={handleSubmit} disabled={sourceError !== undefined}>Submit</Button>
       </DialogActions>
     </Dialog>
   )
