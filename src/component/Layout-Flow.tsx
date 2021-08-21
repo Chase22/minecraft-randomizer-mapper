@@ -30,7 +30,6 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
   let sourceList = [...connections.map(value => value.source), ...connections.map(value => value.target)];
   let set = new Set(sourceList);
   const nodes: Node[] = Array.from(set).map(name => {
-    console.log(name)
       return {
         id: name,
         type: 'default',

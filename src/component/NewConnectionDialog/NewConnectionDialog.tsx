@@ -1,7 +1,7 @@
-import {Button, Dialog, DialogActions, DialogContent, Snackbar} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, Snackbar, useMediaQuery, useTheme} from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {useState} from "react";
+import React, {useState} from "react";
 import {ItemConnection} from "../../App";
 import {Alert} from "@material-ui/lab";
 import classes from './NewConnectionDialog.module.css'
@@ -21,6 +21,9 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
   const [sourceError, setSourceError] = useState<string>()
   const [targetError, setTargetError] = useState<string>()
   const [showErrorSnackbar, setShowErrorSnackbar] = useState<boolean>(false)
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   function handleSubmit() {
     let hasError = false
@@ -43,7 +46,7 @@ const NewConnectionDialog: React.FC<NewConnectionDialogProps> = ({onSubmit, item
   }
 
   return (
-    <Dialog open={open} fullWidth>
+    <Dialog open={open} fullWidth fullScreen={fullScreen}>
       <DialogContent>
         <Snackbar
           anchorOrigin={{horizontal: "center", vertical: "top"}}
