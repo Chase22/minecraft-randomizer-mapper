@@ -12,7 +12,7 @@ import ReactFlow, {
 import dagre from 'dagre';
 
 import './layouting.css';
-import {ItemConnection} from "../App";
+import {ItemConnection} from "../util/ItemConnection";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -99,6 +99,7 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
           elementsSelectable={false}
           nodesDraggable={false}
           nodesConnectable={false}
+          onLoad={instance => instance.fitView({padding: 0.25}) }
         >
           <Controls showInteractive={false}/>
         </ReactFlow>

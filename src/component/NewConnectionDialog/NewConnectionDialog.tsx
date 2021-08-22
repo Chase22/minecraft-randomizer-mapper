@@ -2,9 +2,9 @@ import {Button, Dialog, DialogActions, DialogContent, Snackbar, useMediaQuery, u
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, {useState} from "react";
-import {ItemConnection} from "../../App";
 import {Alert} from "@material-ui/lab";
 import classes from './NewConnectionDialog.module.css'
+import {ItemConnection} from "../../util/ItemConnection";
 
 interface NewConnectionDialogProps {
   onSubmit: (source: string, target: string) => void

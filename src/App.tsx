@@ -5,14 +5,11 @@ import './App.css';
 import Layout from "./component/Layout-Flow";
 import NewConnectionDialog from "./component/NewConnectionDialog/NewConnectionDialog";
 import items from './resources/items.json'
+import entities from './resources/entities.json'
 import {Fab} from "@material-ui/core";
 import RemoveConnectionDialog from "./component/RemoveConnectionDialog/RemoveConnectionDialog";
 import useStickyState from "./util/stickyState";
-
-export interface ItemConnection {
-  source: string,
-  target?: string
-}
+import {ItemConnection} from "./util/ItemConnection";
 
 function App() {
   const [connections, setConnections] = useStickyState<ItemConnection[]>([], "itemconnection")
@@ -28,20 +25,21 @@ function App() {
     setNewConnectionDialogOpen(false)
   }
 
+  const ids = Array.from(new Set([...items.map(item => item.name), ...entities.map(entity => entity.name)]))
+
   return (
     <div className="App">
       <Layout connections={connections}/>
       <NewConnectionDialog
         onSubmit={handleNewConnection}
         onClose={() => setNewConnectionDialogOpen(false)}
-        itemIds={items.map(value => value.name).sort()}
+        itemIds={ids.sort()}
         connections={connections}
         open={newConnectionDialogOpen}
       />
       <RemoveConnectionDialog
         onDelete={(itemsToDelete: ItemConnection[]) => {
           setConnections(connections.filter(connection => !itemsToDelete.includes(connection)))
-          setDeleteConnectionDialogOpen(false)
         }}
         onClose={() => {
           setDeleteConnectionDialogOpen(false)
