@@ -1,38 +1,22 @@
-import React from 'react';
-import ReactFlow, {
-  ArrowHeadType,
-  Controls,
-  Edge,
-  isNode,
-  Node,
-  NodeExtent,
-  Position,
-  ReactFlowProvider,
-} from 'react-flow-renderer';
-import dagre from 'dagre';
+import {ArrowHeadType, Edge, isNode, Node, Position, ReactFlowProvider} from "react-flow-renderer";
+import LayoutFlow from "./Layout-Flow";
+import {ItemConnection} from "../../util/ItemConnection";
+import dagre from "dagre";
+import React from "react";
 
-import './layouting.css';
-import {ItemConnection} from "../util/ItemConnection";
+interface NodeRendererProps {
+  connections: ItemConnection[]
+  sources: string[]
+  targets: string[]
+  setOnFocusIdHandler: (handler: (id: string) => void) => void
+}
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-const nodeExtent: NodeExtent = [
-  [0, 0],
-  [1000, 1000],
-];
+const NodeRenderer: React.FC<NodeRendererProps> = ({connections, setOnFocusIdHandler, sources, targets}) => {
 
-interface LayoutFlowProps {
-  connections: ItemConnection[]
-}
-
-const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
-  const sources = connections.map(value => value.source);
-  const targets = connections.map(value => value.target).filter(value => value !== undefined) as string[];
-
-  let sourceList = [...sources, ...targets];
-  let set = new Set(sourceList);
-  const nodes: Node[] = Array.from(set).map(name => {
+  const nodes: Node[] = Array.from(new Set([...sources, ...targets])).map(name => {
       let type = 'default';
       if (sources.includes(name) && !targets.includes(name)) {
         type = 'input'
@@ -63,9 +47,9 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
     }
   }).filter(value => value !== null) as Edge[]
 
-  const elements = [...nodes, ...edges]
-
   dagreGraph.setGraph({rankdir: 'LR'});
+
+  const elements = [...nodes, ...edges]
 
   elements.forEach((el) => {
     if (isNode(el)) {
@@ -90,22 +74,10 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({connections}) => {
   });
 
   return (
-    <div className="layoutflow">
-      <ReactFlowProvider>
-        <ReactFlow
-          className="flow"
-          elements={layoutedElements}
-          nodeExtent={nodeExtent}
-          elementsSelectable={false}
-          nodesDraggable={false}
-          nodesConnectable={false}
-          onLoad={instance => instance.fitView({padding: 0.25}) }
-        >
-          <Controls showInteractive={false}/>
-        </ReactFlow>
-      </ReactFlowProvider>
-    </div>
-  );
-};
+    <ReactFlowProvider>
+      <LayoutFlow elements={layoutedElements} setOnFocusIdHandler={setOnFocusIdHandler} />
+    </ReactFlowProvider>
+  )
+}
 
-export default LayoutFlow;
+export default NodeRenderer

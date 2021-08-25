@@ -1,8 +1,7 @@
-import {Button, Paper, Snackbar} from "@material-ui/core";
+import {Button, Paper} from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, {useState} from "react";
-import {Alert} from "@material-ui/lab";
 import classes from './AddConnections.module.css'
 import {ItemConnection} from "../../../util/ItemConnection";
 import {NotificationBarRequest} from "../EditConnectionsDialog";
