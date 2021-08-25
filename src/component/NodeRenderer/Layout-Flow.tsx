@@ -10,7 +10,7 @@ export interface LayoutFlowProps {
 
 const nodeExtent: NodeExtent = [
   [0, 0],
-  [1000, 1000],
+  [10000, 10000],
 ];
 
 const LayoutFlow: React.FC<LayoutFlowProps> = ({elements, setOnFocusIdHandler}) => {
@@ -30,8 +30,9 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({elements, setOnFocusIdHandler}) 
     }
 
     console.log("effect")
-    setOnFocusIdHandler(onFocusId)
-  }, [store, zoomPanHelper, setOnFocusIdHandler])
+    setOnFocusIdHandler(() => onFocusId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store, zoomPanHelper])
 
   return (
     <>
