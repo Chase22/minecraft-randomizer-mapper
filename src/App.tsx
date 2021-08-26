@@ -1,18 +1,20 @@
 import EditIcon from '@material-ui/icons/Edit';
-import React, {useCallback, useState} from 'react';
+import MenuIcon from '@material-ui/icons/Menu';
+import React, {useState} from 'react';
 import './App.css';
-import items from './resources/items.json'
-import entities from './resources/entities.json'
-import {Fab} from "@material-ui/core";
+import {AppBar, Drawer, Fab, IconButton, Toolbar, Typography} from "@material-ui/core";
 import useStickyState from "./util/stickyState";
 import {ItemConnection} from "./util/ItemConnection";
 import EditConnectionsDialog from "./component/EditConnectionDialog/EditConnectionsDialog";
 import NodeRenderer from "./component/NodeRenderer/NodeRenderer";
 import ZoomInput from "./component/ZoomInput";
+import data from 'minecraft-data'
+import DrawerMenu from "./component/DrawerMenu/DrawerMenu";
 
 function App() {
   const [connections, setConnections] = useStickyState<ItemConnection[]>([], "itemconnection")
 
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false)
   const [onFocusIdHandler, setOnFocusIdHandler] = useState<((id: string) => void)>(() => {
   })
@@ -33,7 +35,7 @@ function App() {
   //   console.log(`Compressed: ${result.toString("Base64").length}`);
   // });
 
-  const ids = Array.from(new Set([...items.map(item => item.name), ...entities.map(entity => entity.name)]))
+  const ids = Object.values(data("1.17.1").items).map(item => item.displayName)
 
   const sources = connections.map(value => value.source);
   const targets = connections.map(value => value.target).filter(value => value !== undefined) as string[];
@@ -42,7 +44,31 @@ function App() {
 
   return (
     <div className="App">
-      <NodeRenderer connections={connections} setOnFocusIdHandler={setOnFocusIdHandler} sources={sources} targets={targets}/>
+      <AppBar>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => setDrawerOpen(true)}
+            edge="start"
+          >
+            <MenuIcon/>
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Minecraft Randomizer Map
+          </Typography>
+          <ZoomInput onSubmit={id => {
+            if (onFocusIdHandler) {
+              onFocusIdHandler(id)
+            }
+          }} nodes={nodeNames}/>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="temporary" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <DrawerMenu onClose={() => setDrawerOpen(false)}/>
+      </Drawer>
+      <NodeRenderer connections={connections} setOnFocusIdHandler={setOnFocusIdHandler} sources={sources}
+                    targets={targets}/>
       <EditConnectionsDialog
         onSubmit={handleNewConnection}
         itemIds={ids.sort()}
@@ -59,13 +85,6 @@ function App() {
         <Fab color="primary" onClick={() => setShowEditDialog(true)}>
           <EditIcon/>
         </Fab>
-        <ZoomInput onSubmit={id => {
-          console.log(onFocusIdHandler)
-          console.log(id)
-          if (onFocusIdHandler) {
-            onFocusIdHandler(id)
-          }
-        }} nodes={nodeNames}/>
       </div>
     </div>
   );
