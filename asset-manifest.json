@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.11c8ce93.chunk.css",
-    "main.js": "/static/js/main.6657cf44.chunk.js",
-    "main.js.map": "/static/js/main.6657cf44.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.0768e00f.js",
-    "runtime-main.js.map": "/static/js/runtime-main.0768e00f.js.map",
-    "static/js/2.eb5ab114.chunk.js": "/static/js/2.eb5ab114.chunk.js",
-    "static/js/2.eb5ab114.chunk.js.map": "/static/js/2.eb5ab114.chunk.js.map",
-    "static/js/3.a576ad47.chunk.js": "/static/js/3.a576ad47.chunk.js",
-    "static/js/3.a576ad47.chunk.js.map": "/static/js/3.a576ad47.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.11c8ce93.chunk.css.map": "/static/css/main.11c8ce93.chunk.css.map",
-    "static/js/2.eb5ab114.chunk.js.LICENSE.txt": "/static/js/2.eb5ab114.chunk.js.LICENSE.txt"
+    "main.css": "/minecraft-randomizer-mapper/static/css/main.11c8ce93.chunk.css",
+    "main.js": "/minecraft-randomizer-mapper/static/js/main.6657cf44.chunk.js",
+    "main.js.map": "/minecraft-randomizer-mapper/static/js/main.6657cf44.chunk.js.map",
+    "runtime-main.js": "/minecraft-randomizer-mapper/static/js/runtime-main.8c14c53a.js",
+    "runtime-main.js.map": "/minecraft-randomizer-mapper/static/js/runtime-main.8c14c53a.js.map",
+    "static/js/2.eb5ab114.chunk.js": "/minecraft-randomizer-mapper/static/js/2.eb5ab114.chunk.js",
+    "static/js/2.eb5ab114.chunk.js.map": "/minecraft-randomizer-mapper/static/js/2.eb5ab114.chunk.js.map",
+    "static/js/3.a576ad47.chunk.js": "/minecraft-randomizer-mapper/static/js/3.a576ad47.chunk.js",
+    "static/js/3.a576ad47.chunk.js.map": "/minecraft-randomizer-mapper/static/js/3.a576ad47.chunk.js.map",
+    "index.html": "/minecraft-randomizer-mapper/index.html",
+    "static/css/main.11c8ce93.chunk.css.map": "/minecraft-randomizer-mapper/static/css/main.11c8ce93.chunk.css.map",
+    "static/js/2.eb5ab114.chunk.js.LICENSE.txt": "/minecraft-randomizer-mapper/static/js/2.eb5ab114.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0768e00f.js",
+    "static/js/runtime-main.8c14c53a.js",
     "static/js/2.eb5ab114.chunk.js",
     "static/css/main.11c8ce93.chunk.css",
     "static/js/main.6657cf44.chunk.js"
