@@ -32,8 +32,6 @@ const AddConnections: React.FC<AddConnectionsProps> = ({onSubmit, itemIds, conne
     }
     if (!hasError) {
       onSubmit(source!!, target!!)
-      setSource(undefined)
-      setTarget(undefined)
     }
   }
 
@@ -63,7 +61,7 @@ const AddConnections: React.FC<AddConnectionsProps> = ({onSubmit, itemIds, conne
         <Autocomplete
           className={classes.autoCorrect}
           onChange={
-            (e, value) => setTarget(value!!)
+            (e, value) => setTarget(value || undefined)
           }
           renderInput={(params) =>
             <TextField
