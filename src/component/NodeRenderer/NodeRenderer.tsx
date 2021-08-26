@@ -44,7 +44,7 @@ const NodeRenderer: React.FC<NodeRendererProps> = ({connections, setOnFocusIdHan
         id: `${connection.source}-${connection.target}`,
         source: connection.source,
         target: connection.target,
-        type: 'smoothstep',
+        type: 'custom',
         arrowHeadType: ArrowHeadType.ArrowClosed
 
       }

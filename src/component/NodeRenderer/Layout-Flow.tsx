@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import ReactFlow, {Controls, Elements, NodeExtent, useStore, useZoomPanHelper,} from 'react-flow-renderer';
 
 import '../layouting.css';
+import CustomEdge from "./CustomEdge";
 
 export interface LayoutFlowProps {
   elements: Elements,
@@ -40,6 +41,7 @@ const LayoutFlow: React.FC<LayoutFlowProps> = ({elements, setOnFocusIdHandler}) 
         <ReactFlow
           className="flow"
           elements={elements}
+          edgeTypes={{custom: CustomEdge}}
           nodeExtent={nodeExtent}
           elementsSelectable={false}
           nodesDraggable={false}
